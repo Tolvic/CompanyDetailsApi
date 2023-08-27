@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CompanyDetails.Core.DTOs;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyDetails.Api.Controllers;
 
@@ -9,8 +10,9 @@ public class CompanyController : ControllerBase
     [HttpGet]
     [ApiVersion("1.0")]
     [Route("{jurisdictionCode}/{companyNumber}")]
-    public IActionResult Index(string jurisdictionCode, string companyNumber)
+    public IActionResult GetCompanyDetails([FromRoute] CompanyDetailsRequest request)
     {
         return Ok();
     }
 }
+
