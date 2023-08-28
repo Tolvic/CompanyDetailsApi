@@ -1,3 +1,4 @@
+using CompanyDetails.Application.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
@@ -16,6 +17,8 @@ builder.Services.AddApiVersioning(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddCompanyDetailsRequestValidation();
 
 var app = builder.Build();
 
