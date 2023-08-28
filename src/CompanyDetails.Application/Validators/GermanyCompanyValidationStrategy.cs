@@ -1,6 +1,4 @@
 ﻿using CompanyDetails.Core.Constants;
-using CompanyDetails.Core.Interfaces.Validators;
-using CompanyDetails.Core.Models;
 using Microsoft.Extensions.Logging;
 
 namespace CompanyDetails.Application.Validators;

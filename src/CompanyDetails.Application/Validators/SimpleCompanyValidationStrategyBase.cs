@@ -18,10 +18,10 @@ public abstract class SimpleCompanyValidationStrategyBase : ICompanyValidationSt
     
     public ValidationResult Validate(string companyNumber)
     {
-        if (string.IsNullOrEmpty(companyNumber))
+        if (string.IsNullOrWhiteSpace(companyNumber))
         {
             _logger.LogWarning("Company number cannot be null or empty");
-            return new ValidationResult { IsValid = false, Reason = "Company number cannot be null or empty" };
+            return new ValidationResult { IsValid = false, Reason = "Validation failed" };
         }
 
         if (!_validCompanyNumbers.Contains(companyNumber))

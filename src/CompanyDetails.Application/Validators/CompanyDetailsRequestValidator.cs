@@ -43,7 +43,7 @@ public class CompanyDetailsRequestValidator : ICompanyDetailsRequestValidator
         catch (Exception e)
         {
             _logger.LogError(e, "An exception occurred during validation. Request: {@Request}", request);
-            return new ValidationResult { IsValid = false, Reason = "An unexpected error occurred during validation." };
+            return new ValidationResult { IsValid = false, Reason = "Validation failed" };
         }
 
     }
