@@ -1,4 +1,5 @@
 ﻿using CompanyDetails.Core.DTOs;
+using CompanyDetails.Core.Interfaces.Orchestrator;
 using CompanyDetails.Core.Interfaces.Validators;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,17 +10,19 @@ namespace CompanyDetails.Api.Controllers;
 public class CompanyController : ControllerBase
 {
     private readonly ICompanyDetailsRequestValidator _requestValidator;
+    private readonly ICompanyDetailsRequestOrchestrator _orchestrator;
 
-    public CompanyController(ICompanyDetailsRequestValidator requestValidator)
+    public CompanyController(ICompanyDetailsRequestValidator requestValidator, ICompanyDetailsRequestOrchestrator orchestrator)
     {
         _requestValidator = requestValidator;
+        _orchestrator = orchestrator;
     }
     
     
     [HttpGet]
     [ApiVersion("1.0")]
     [Route("{jurisdictionCode}/{companyNumber}")]
-    public IActionResult GetCompanyDetails([FromRoute] CompanyDetailsRequest request)
+    public async Task<IActionResult> GetCompanyDetails([FromRoute] CompanyDetailsRequest request)
     {
         var validationResult = _requestValidator.Validate(request);
 
@@ -28,7 +31,9 @@ public class CompanyController : ControllerBase
             return BadRequest(validationResult.Reason);
         }
         
-        return Ok();
+        var response = await _orchestrator.Get(request);
+        
+        return Ok(response);
     }
 }
 
