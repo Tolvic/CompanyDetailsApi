@@ -8,7 +8,7 @@ public class Owner
     public string? FirstName { get; set; }
     
     [JsonPropertyName("middlenames")]
-    public string? Middlenames { get; set; }
+    public string? MiddleNames { get; set; }
     
     [JsonPropertyName("last_name")]
     public string? LastName { get; set; }

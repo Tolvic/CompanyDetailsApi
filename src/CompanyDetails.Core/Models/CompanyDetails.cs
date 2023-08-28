@@ -10,4 +10,5 @@ public class CompanyDetails
     public DateOnly? DateEstablished { get; set; }
     public DateOnly? DateDissolved { get; set; }
     public Address? Address { get; set; }
+    public List<Activity> Activities { get; set; } = new List<Activity>();
 }

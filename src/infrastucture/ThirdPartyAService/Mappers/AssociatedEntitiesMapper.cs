@@ -8,6 +8,7 @@ public class AssociatedEntitiesMapper : IAssociatedEntitiesMapper
 {
     private readonly IDateMapper _dateMapper;
     private readonly ILogger<AssociatedEntitiesMapper> _logger;
+    public const string OwnerRole = "owner";
 
     public AssociatedEntitiesMapper(IDateMapper dateMapper, ILogger<AssociatedEntitiesMapper> logger)
     {
@@ -15,27 +16,16 @@ public class AssociatedEntitiesMapper : IAssociatedEntitiesMapper
         _logger = logger;
     }
     
-    public AssociatedEntities Map(CompanyInfo companyInfo)
+    public AssociatedEntities Map(CompanyInfo? companyInfo)
     {
         try
         {
             var result = new AssociatedEntities();
 
-            if (companyInfo.Officers is null) return result;
+            if (companyInfo is null) return result;
 
-            foreach (var officer in companyInfo.Officers)
-            {
-                if (IsCompany(officer))
-                {
-                    result.Companies.Add(MapToCompany(officer));
-                    continue;
-                }
-
-                if (IsPerson(officer))
-                {
-                    result.Persons.Add(MapToPerson(officer));
-                }
-            }
+            MapOfficers(ref result, companyInfo.Officers);
+            MapOwners(ref result, companyInfo.Owners);
 
             return result;
         }
@@ -43,6 +33,44 @@ public class AssociatedEntitiesMapper : IAssociatedEntitiesMapper
         {
             _logger.LogError("Error mapping associated entities from ThirdPartyAService: {Exception}", e);
             return new AssociatedEntities();
+        }
+    }
+
+    private void MapOwners(ref AssociatedEntities result, List<Owner>? owners)
+    {
+        if (owners is null) return;
+
+        foreach (var owner in owners)
+        {
+            if (IsCompany(owner))
+            {
+                result.Companies.Add(MapToCompany(owner));
+                continue;
+            }
+
+            if (IsPerson(owner))
+            {
+                result.Persons.Add(MapToPerson(owner));
+            }
+        }
+    }
+    
+    private void MapOfficers(ref AssociatedEntities result, List<Officer>? officers)
+    {
+        if (officers is null) return;
+
+        foreach (var officer in officers)
+        {
+            if (IsCompany(officer))
+            {
+                result.Companies.Add(MapToCompany(officer));
+                continue;
+            }
+
+            if (IsPerson(officer))
+            {
+                result.Persons.Add(MapToPerson(officer));
+            }
         }
     }
     
@@ -53,6 +81,17 @@ public class AssociatedEntitiesMapper : IAssociatedEntitiesMapper
             Role = officer.Role,
             DateFrom = _dateMapper.Map(officer.DateFrom),
             DateTo = _dateMapper.Map(officer.DateTo)
+        };
+    
+    private Company MapToCompany(Owner owner) => 
+        new()
+        {
+            CompanyName = owner.Name,
+            Role = OwnerRole,
+            DateFrom = _dateMapper.Map(owner.DateFrom),
+            DateTo = _dateMapper.Map(owner.DateTo),
+            OwnershipPercentage = owner.SharesHeld,
+            OwnershipType = owner.OwnershipType
         };
 
     private Person MapToPerson(Officer officer) => 
@@ -67,8 +106,27 @@ public class AssociatedEntitiesMapper : IAssociatedEntitiesMapper
             DateTo = _dateMapper.Map(officer.DateTo)
         };
     
+    private Person MapToPerson(Owner owner) => 
+        new()
+        {
+            FirstName = owner.FirstName,
+            MiddleNames = owner.MiddleNames,
+            LastName = owner.LastName,
+            DateOfBirth = _dateMapper.Map(owner.DateOfBirth),
+            Role = OwnerRole,
+            DateFrom = _dateMapper.Map(owner.DateFrom),
+            DateTo = _dateMapper.Map(owner.DateTo),
+            OwnershipPercentage = owner.SharesHeld,
+            OwnershipType = owner.OwnershipType
+        };
+    
     private static bool IsCompany(Officer officer) =>
         officer.DateOfBirth is null && officer.FirstName is null && officer.LastName is null;
 
     private static bool IsPerson(Officer officer) => !IsCompany(officer);
+    
+    private static bool IsCompany(Owner owner) =>
+        owner.DateOfBirth is null && owner.FirstName is null && owner.LastName is null;
+
+    private static bool IsPerson(Owner owner) => !IsCompany(owner);
 }

@@ -17,6 +17,7 @@
       <ProjectReference Include="..\CompanyDetails.Application\CompanyDetails.Application.csproj" />
       <ProjectReference Include="..\CompanyDetails.Core\CompanyDetails.Core.csproj" />
       <ProjectReference Include="..\infrastucture\ThirdPartyAService\ThirdPartyAService.csproj" />
+      <ProjectReference Include="..\infrastucture\ThirdPartyBService\ThirdPartyBService.csproj" />
     </ItemGroup>
 
 </Project>

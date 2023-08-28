@@ -8,5 +8,4 @@ public class Person : Entity
     public string? LastName { get; set; }
     public DateOnly? DateOfBirth { get; set; }
     public string? Nationality { get; set; }
-    public double? OwnershipPercentage { get; set; }
 }

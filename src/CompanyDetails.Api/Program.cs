@@ -3,6 +3,7 @@ using CompanyDetails.Application.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using ThirdPartyAService;
+using ThirdPartyBService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +22,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddCompanyDetailsRequestValidation();
-builder.Services.AddThirdPartyAService(builder.Configuration);
+// builder.Services.AddThirdPartyAService(builder.Configuration);
+builder.Services.AddThirdPartyBService(builder.Configuration);
 builder.Services.AddRequestOrchestrators();
 
 var app = builder.Build();
