@@ -10,11 +10,11 @@ namespace ThirdPartyBService;
     public class ThirdPartyBClient : IThirdPartyBClient
     {
         private readonly HttpClient _httpClient;
-        private readonly ThirdPartyClientOptions _options;
+        private readonly ThirdPartyServiceOptions _options;
         private readonly ILogger<ThirdPartyBClient> _logger;
 
         public ThirdPartyBClient(HttpClient httpClient,
-            IOptions<ThirdPartyClientOptions> options,
+            IOptions<ThirdPartyServiceOptions> options,
             ILogger<ThirdPartyBClient> logger)
         {
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));

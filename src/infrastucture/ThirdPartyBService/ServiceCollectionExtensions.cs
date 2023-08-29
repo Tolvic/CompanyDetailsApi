@@ -10,7 +10,7 @@ public static class ServiceCollectionExtensions
 {
     public static void AddThirdPartyBService(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<ThirdPartyClientOptions>(configuration.GetSection("ThirdPartyBService"));
+        services.Configure<ThirdPartyServiceOptions>(configuration.GetSection("ThirdPartyBService"));
         
         services.AddHttpClient<IThirdPartyBClient, ThirdPartyBClient>();
         services.AddTransient<IThirdPartyBClient, ThirdPartyBClient>();

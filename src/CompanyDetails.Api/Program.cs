@@ -22,7 +22,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddCompanyDetailsRequestValidation();
-// builder.Services.AddThirdPartyAService(builder.Configuration);
+builder.Services.AddThirdPartyAService(builder.Configuration);
 builder.Services.AddThirdPartyBService(builder.Configuration);
 builder.Services.AddRequestOrchestrators();
 

@@ -10,7 +10,7 @@ public static class ServiceCollectionExtensions
 {
     public static void AddThirdPartyAService(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<ThirdPartyClientOptions>(configuration.GetSection("ThirdPartyAService"));
+        services.Configure<ThirdPartyServiceOptions>(configuration.GetSection("ThirdPartyAService"));
         
         services.AddHttpClient<IThirdPartyAClient, ThirdPartyAClient>();
         services.AddTransient<IThirdPartyAClient, ThirdPartyAClient>();

@@ -1,7 +1,9 @@
 ﻿using CompanyDetails.Core.DTOs;
 using CompanyDetails.Core.Interfaces.Adapters;
 using CompanyDetails.Core.Models;
+using CompanyDetails.Core.Options;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using ThirdPartyAService.Mappers;
 
 
@@ -13,15 +15,19 @@ public class ThirdPartyAAdapter : ICompanyDetailsAdapter
     private readonly ICompanyDetailsResponseMapper _mapper;
     private readonly ILogger<ThirdPartyAAdapter> _logger;
 
-    public ThirdPartyAAdapter(IThirdPartyAClient client,
+    public List<string> Jurisdictions { get; }
+    
+    public ThirdPartyAAdapter(IOptions<ThirdPartyServiceOptions> options, 
+        IThirdPartyAClient client,
         ICompanyDetailsResponseMapper mapper,
         ILogger<ThirdPartyAAdapter> logger)
     {
+        Jurisdictions = options.Value.Jurisdictions;
         _client = client;
         _mapper = mapper;
         _logger = logger;
     }
-    
+
     public async Task<CompanyDetailsResponse> GetCompanyDetailsAsync(CompanyDetailsRequest request)
     {
         try
