@@ -4,9 +4,9 @@ namespace CompanyDetails.Core.DTOs;
 
 public class CompanyDetailsRequest
 {
-    [FromRoute]
+    [FromRoute(Name = "jurisdictionCode")]
     public string JurisdictionCode { get; set; } = string.Empty;
     
-    [FromRoute]
+    [FromRoute(Name = "companyNumber")]
     public string CompanyNumber { get; set; } = string.Empty;
 }
