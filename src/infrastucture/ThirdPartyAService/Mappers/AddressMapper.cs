@@ -11,10 +11,10 @@ public class AddressMapper : IAddressMapper
             ? null
             : new Address
             {
-                Street = address.Street,
-                City = address.City,
-                Country = address.Country,
-                Postcode = address.Postcode
+                Street = address.Street?.Trim().Normalize(),
+                City = address.City?.Trim().Normalize(),
+                Country = address.Country?.Trim().Normalize(),
+                Postcode = address.Postcode?.Trim().Normalize()
             };
     }
 }

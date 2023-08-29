@@ -32,10 +32,10 @@ public class AddressMapper : IAddressMapper
             
             return new Address
             {
-                Street = splitAddress[0],
-                City = splitAddress[1],
-                Country = splitAddress[2],
-                Postcode = splitAddress[3]
+                Street = splitAddress[0].Trim().Normalize(),
+                City = splitAddress[1].Trim().Normalize(),
+                Country = splitAddress[2].Trim().Normalize(),
+                Postcode = splitAddress[3].Trim().Normalize()
             };
 
         }

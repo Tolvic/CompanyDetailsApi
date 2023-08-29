@@ -6,7 +6,7 @@ public class Address : IEquatable<Address>
     public string? City { get; set; }
     public string? Country { get; set; }
     public string? Postcode { get; set; }
-    
+
     public bool Equals(Address? other)
     {
         if (other == null)
@@ -14,10 +14,10 @@ public class Address : IEquatable<Address>
             return false;
         }
 
-        return Street == other.Street &&
-               City == other.City &&
-               Country == other.Country &&
-               Postcode == other.Postcode;
+        return string.Equals(Street, other.Street, StringComparison.InvariantCultureIgnoreCase) &&
+               string.Equals(City, other.City, StringComparison.InvariantCultureIgnoreCase) &&
+               string.Equals(Country, other.Country, StringComparison.InvariantCultureIgnoreCase) &&
+               string.Equals(Postcode, other.Postcode, StringComparison.InvariantCultureIgnoreCase);
     }
 
     public override string ToString()
