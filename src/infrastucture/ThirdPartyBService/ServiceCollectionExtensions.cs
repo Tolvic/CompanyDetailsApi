@@ -10,7 +10,7 @@ public static class ServiceCollectionExtensions
 {
     public static void AddThirdPartyBService(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<ThirdPartyServiceOptions>(configuration.GetSection("ThirdPartyBService"));
+        services.Configure<ThirdPartyBOptions>(configuration.GetSection("ThirdPartyBService"));
         
         services.AddHttpClient<IThirdPartyBClient, ThirdPartyBClient>();
         services.AddTransient<IThirdPartyBClient, ThirdPartyBClient>();
@@ -21,5 +21,6 @@ public static class ServiceCollectionExtensions
         services.AddTransient<ICompanyDetailsMapper, CompanyDetailsMapper>();
         services.AddTransient<ICompanyDetailsResponseMapper, CompanyDetailsResponseMapper>();
         services.AddTransient<IDateMapper, DateMapper>();
+        services.AddTransient<INameMapper, NameMapper>();
     }
 }

@@ -14,7 +14,7 @@ namespace ThirdPartyAService
         private readonly ILogger<ThirdPartyAClient> _logger;
 
         public ThirdPartyAClient(HttpClient httpClient,
-            IOptions<ThirdPartyServiceOptions> options,
+            IOptions<ThirdPartyAOptions> options,
             ILogger<ThirdPartyAClient> logger)
         {
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));

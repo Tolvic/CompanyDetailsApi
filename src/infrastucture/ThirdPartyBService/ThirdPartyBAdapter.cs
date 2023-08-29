@@ -15,7 +15,7 @@ public class ThirdPartyBAdapter: ICompanyDetailsAdapter
     private readonly ILogger<ThirdPartyBAdapter> _logger;
 
     public List<string> Jurisdictions { get; }
-    public ThirdPartyBAdapter(IOptions<ThirdPartyServiceOptions> options,
+    public ThirdPartyBAdapter(IOptions<ThirdPartyBOptions> options,
         IThirdPartyBClient client,
         ICompanyDetailsResponseMapper mapper,
         ILogger<ThirdPartyBAdapter> logger)

@@ -5,5 +5,5 @@ namespace CompanyDetails.Core.Interfaces.Orchestrator;
 
 public interface ICompanyDetailsRequestOrchestrator
 {
-    Task<CompanyDetailsResponse> Get(CompanyDetailsRequest request);
+    Task<CompanyDetailsResponse?> Get(CompanyDetailsRequest request);
 }

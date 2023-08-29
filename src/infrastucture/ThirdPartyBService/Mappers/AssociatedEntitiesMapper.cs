@@ -7,11 +7,13 @@ namespace ThirdPartyBService.Mappers;
 public class AssociatedEntitiesMapper : IAssociatedEntitiesMapper
 {
     private readonly IDateMapper _dateMapper;
+    private readonly INameMapper _nameMapper;
     private readonly ILogger<AssociatedEntitiesMapper> _logger;
 
-    public AssociatedEntitiesMapper(IDateMapper dateMapper, ILogger<AssociatedEntitiesMapper> logger)
+    public AssociatedEntitiesMapper(IDateMapper dateMapper, INameMapper nameMapper, ILogger<AssociatedEntitiesMapper> logger)
     {
         _dateMapper = dateMapper;
+        _nameMapper = nameMapper;
         _logger = logger;
     }
     
@@ -43,13 +45,14 @@ public class AssociatedEntitiesMapper : IAssociatedEntitiesMapper
         {
             var person = new Person
             {
-                FullName = relatedPerson.Name,
+                FirstName = _nameMapper.GetFirstName(relatedPerson.Name),
+                MiddleNames = _nameMapper.GetMiddleNames(relatedPerson.Name),
+                LastName = _nameMapper.GetLastName(relatedPerson.Name),
                 DateFrom = _dateMapper.Map(relatedPerson.DateFrom),
                 DateTo = _dateMapper.Map(relatedPerson.DateTo),
                 DateOfBirth = _dateMapper.Map(relatedPerson.BirthDate),
                 Role = relatedPerson.Type,
                 Nationality = relatedPerson.Nationality,
-
             };
 
             if (relatedPerson.Ownership is not null)
@@ -65,6 +68,7 @@ public class AssociatedEntitiesMapper : IAssociatedEntitiesMapper
             result.Persons.Add(person);
         }
     }
+    
     
     private void MapRelatedCompanies(ref AssociatedEntities result, List<RelatedCompany>? relatedCompanies)
     {

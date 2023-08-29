@@ -1,5 +1,4 @@
 ﻿using CompanyDetails.Core.Interfaces.Adapters;
-using CompanyDetails.Core.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ThirdPartyAService.Mappers;
@@ -10,8 +9,8 @@ public static class ServiceCollectionExtensions
 {
     public static void AddThirdPartyAService(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<ThirdPartyServiceOptions>(configuration.GetSection("ThirdPartyAService"));
-        
+        services.Configure<ThirdPartyAOptions>(configuration.GetSection("ThirdPartyAService"));
+
         services.AddHttpClient<IThirdPartyAClient, ThirdPartyAClient>();
         services.AddTransient<IThirdPartyAClient, ThirdPartyAClient>();
         services.AddTransient<ICompanyDetailsAdapter, ThirdPartyAAdapter>();

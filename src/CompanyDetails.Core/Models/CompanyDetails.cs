@@ -11,4 +11,6 @@ public class CompanyDetails
     public DateOnly? DateDissolved { get; set; }
     public Address? Address { get; set; }
     public List<Activity> Activities { get; set; } = new List<Activity>();
+    
+    public Dictionary<string, List<string>> Warnings { get; set; } = new Dictionary<string, List<string>>();
 }

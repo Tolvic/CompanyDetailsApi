@@ -17,7 +17,7 @@ public class ThirdPartyAAdapter : ICompanyDetailsAdapter
 
     public List<string> Jurisdictions { get; }
     
-    public ThirdPartyAAdapter(IOptions<ThirdPartyServiceOptions> options, 
+    public ThirdPartyAAdapter(IOptions<ThirdPartyAOptions> options, 
         IThirdPartyAClient client,
         ICompanyDetailsResponseMapper mapper,
         ILogger<ThirdPartyAAdapter> logger)
@@ -33,7 +33,9 @@ public class ThirdPartyAAdapter : ICompanyDetailsAdapter
         try
         {
             var companyInfo = await _client.GetCompanyInfoAsync(request);
-            return _mapper.Map(companyInfo);
+            var result = _mapper.Map(companyInfo);
+
+            return result;
         }
         catch (Exception e)
         {

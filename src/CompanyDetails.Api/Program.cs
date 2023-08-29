@@ -1,3 +1,4 @@
+using CompanyDetails.Application.CompanyDetailsConsolidation;
 using CompanyDetails.Application.Orchestrators;
 using CompanyDetails.Application.Validators;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,7 @@ builder.Services.AddCompanyDetailsRequestValidation();
 builder.Services.AddThirdPartyAService(builder.Configuration);
 builder.Services.AddThirdPartyBService(builder.Configuration);
 builder.Services.AddRequestOrchestrators();
+builder.Services.AddConsolidationService();
 
 var app = builder.Build();
 
